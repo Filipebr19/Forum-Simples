@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Interfaces\\": "Interfaces/",
+            "Class\\": "Class/",
+            "Db\\": "Db/",
+            "Includes\\": "Includes/"
+        }
+    },
+
+    "require": {}
+}
