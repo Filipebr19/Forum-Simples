@@ -7,13 +7,16 @@ use Interfaces\DAOInterface;
 use Interfaces\UserIntf;
 use PDO;
 
+// Classe responsável pela interação com o banco de dados MySQL.
 class MysqlDb implements DAOInterface {
+    // Conexão com o Banco de dado com o PDO
     private PDO $pdo;
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
 
+    // Método que adiciona um usuário ao banco de dados
     public function addUser(UserIntf $user, $table) {
         $sql = $this->pdo->prepare("INSERT INTO $table VALUES (default, :nome, :email, :senha)");
         $sql->bindValue(':nome', $user->getName());
@@ -26,9 +29,13 @@ class MysqlDb implements DAOInterface {
 
         return $user;
     }
+
+    // Método que ler o id do usuário 
     public function readId(int $id, string $table) {
         
     }
+
+    // Método que ler o email do usuário
     public function readEmail(string $email, string $table) {
         $sql = $this->pdo->prepare("SELECT * FROM $table WHERE email = :email");
         $sql->bindValue(':email', $email);
@@ -44,9 +51,13 @@ class MysqlDb implements DAOInterface {
             return false;
         };
     }
+
+    // Método que atualiza os dados do usuário no banco de dados
     public function updateUser(UserIntf $user, string $table) {
         
     }
+
+    // Método que deleta usuário do bando de dados
     public function deleteUser(int $id, $table) {
         
     }
