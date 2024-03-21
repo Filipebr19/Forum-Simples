@@ -32,7 +32,18 @@ class MysqlDb implements DAOInterface {
 
     // Método que ler o id do usuário 
     public function readId(int $id, string $table) {
-        
+        $sql = $this->pdo->prepare("SELECT * FROM $table WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            $arr = $sql->fetch();
+
+            $user = new User($arr['nome'], $arr['email'], $arr['senha']);
+            return $user;
+        } else {
+            return false;
+        };
     }
 
     // Método que ler o email do usuário

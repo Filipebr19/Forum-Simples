@@ -26,16 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $email = Validations::VALID_EMAIL($email);
         $senha = Validations::VALID_PASS($senha);
 
-        
-
-        if(!$db->readEmail($email, 'users')) {
-            $user = new User($name, $email, $senha);
-
-            $db->addUser($user, $user->getTyper());
-            $_SESSION['id'] = $user->getId();
-
-            header('Location: ../index.php');
-            exit;
+        if(!$email) {
+            array_push($erros, "O email não digitado corretamente!");
+        } else {
+            if(!$db->readEmail($email, 'users')) {
+                $user = new User($name, $email, $senha);
+    
+                $db->addUser($user, $user->getTyper());
+                $_SESSION['id'] = $user->getId();
+                $_SESSION['table'] = $user->getTyper();
+    
+                header('Location: ../index.php');
+                exit;
+            } else {
+                array_push($erros, "Este email: $email já existe! Faça o login.");
+            };
         };
     }
 }
@@ -54,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     <input type="submit" value="Cadastrar">
 </form>
+
+<a href="">Faça o login</a>
 
 <div class="erros">
     <?php

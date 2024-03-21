@@ -10,7 +10,7 @@ class Validations {
 
     // Método que valida o email do usuário
     static function VALID_EMAIL(string $email): string {
-        return strtolower(filter_var($email, FILTER_SANITIZE_EMAIL));
+        return strtolower(filter_var($email, FILTER_VALIDATE_EMAIL));
     }
 
     // Método que valida e faz a encriptação da senha do usuário
