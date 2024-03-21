@@ -40,6 +40,8 @@ class MysqlDb implements DAOInterface {
             $arr = $sql->fetch();
 
             $user = new User($arr['nome'], $arr['email'], $arr['senha']);
+            $user->setId($arr['id']);
+
             return $user;
         } else {
             return false;
@@ -56,6 +58,7 @@ class MysqlDb implements DAOInterface {
             $arr = $sql->fetch();
 
             $user = new User($arr['nome'], $arr['email'], $arr['senha']);
+            $user->setId($arr['id']);
 
             return $user;
         } else {
@@ -65,11 +68,18 @@ class MysqlDb implements DAOInterface {
 
     // Método que atualiza os dados do usuário no banco de dados
     public function updateUser(UserIntf $user, string $table) {
-        
+        $sql = $this->pdo->prepare("UPDATE $table SET nome = :nome, email = :email, senha = :senha WHERE id = :id");
+        $sql->bindValue(':id', $user->getId());
+        $sql->bindValue(':nome', $user->getName());
+        $sql->bindValue(':email', $user->getEmail());
+        $sql->bindValue(':senha', $user->getSenha());
+        $sql->execute();
     }
 
     // Método que deleta usuário do bando de dados
     public function deleteUser(int $id, $table) {
-        
+        $sql = $this->pdo->prepare("DELETE FROM $table WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
     }
 };
