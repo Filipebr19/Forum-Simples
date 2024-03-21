@@ -30,6 +30,7 @@ include_once 'partials/header.php';
 <h3>Configurações da conta</h3>
 <p><a href="">Alterar Conta</a></p>
 <p><a href="">Deletar Conta</a></p>
+<p><a href="">Sair</a></p>
 
 
 <?php 
