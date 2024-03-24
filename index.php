@@ -31,6 +31,7 @@ include_once 'partials/header.php';
     <p><a href="pages/deletar.php?id=<?=$user->getId()?>&table=<?=$user->getTyper()?>" onclick="return confirm('Tem certeza que quer excluir?')">Deletar Conta</a></p>
     <p><a href="pages/sair.php">Sair</a></p>
 
+    <h2>Postagens</h2>
 
 <?php 
 include_once 'partials/footer.php';
