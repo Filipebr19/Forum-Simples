@@ -17,4 +17,9 @@ class Validations {
     static function VALID_PASS(string $senha): string {
         return password_hash(filter_var($senha, FILTER_SANITIZE_SPECIAL_CHARS), PASSWORD_DEFAULT);
     }
+
+    // Método que valida senha sem a encriptação
+    static function VALID_PASS_NO_ENCRIP($senha): string {
+        return filter_var($senha, FILTER_SANITIZE_SPECIAL_CHARS);
+    }
 };

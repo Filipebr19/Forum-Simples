@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 require_once __DIR__ . "/../vendor/autoload.php";
 include_once __DIR__ . '/../partials/header.php';
@@ -11,56 +11,49 @@ use Includes\Validations\Validations;
 $connect = new Config;
 $db = new MysqlDb($connect->connection());
 
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $erros = [];
 
-    $name = $_POST['name'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    if (empty($name) || empty($email) || empty($senha)) {
+    if (empty($email) || empty($senha)) {
         array_push($erros, "Todos os campos devem ser preenchidos");
     } else {
-        $name = Validations::VALID_NAME($name);
         $email = Validations::VALID_EMAIL($email);
-        $senha = Validations::VALID_PASS($senha);
+        $senha =  Validations::VALID_PASS_NO_ENCRIP($senha);
 
         if(!$email) {
-            array_push($erros, "O email não foi digitado corretamente!");
+            array_push($erros, "O email não foi digitado corretamente!");   
+        } else if(!$db->readEmail($email, 'users')){
+            array_push($erros, "Usuário não foi encontrado.");
         } else {
-            if(!$db->readEmail($email, 'users')) {
-                $user = new User($name, $email, $senha);
-    
-                $db->addUser($user, $user->getTyper());
+            $user = $db->readEmail($email, 'users');
+
+            if(password_verify($senha, $user->getSenha())) {
                 $_SESSION['id'] = $user->getId();
                 $_SESSION['table'] = $user->getTyper();
     
                 header('Location: ../index.php');
                 exit;
             } else {
-                array_push($erros, "Este email: $email já existe! Faça o login.");
+                array_push($erros, "Senha está incorreta.");
             };
         };
-    }
-}
+    };
+};
 
 ?>
 
 <form action="" method="post">
-    <label for="name">Nome</label>
-    <input type="text" name="name" id="name">
-
     <label for="email">Email:</label>
     <input type="text" name="email" id="email">
 
     <label for="senha">Senha:</label>
     <input type="text" name="senha" id="senha">
 
-    <input type="submit" value="Cadastrar">
+    <input type="submit" value="Acessar">
 </form>
-
-<a href="login.php">Faça o login</a>
 
 <div class="erros">
     <?php
@@ -73,6 +66,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ?>
 </div>
 
-<?php
-include_once '../partials/footer.php';
-?>
+<?php 
+include_once __DIR__ . '/../partials/footer.php';
