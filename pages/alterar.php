@@ -41,30 +41,40 @@ if($_SERVER['REQUEST_METHOD'] === "POST") {
 include_once "../partials/header.php";
 ?>
 
-<form action="<?=$_SERVER['PHP_SELF']."?id=".$user->getId()."&table=".$user->getTyper()?>" method="post">
-    <input type="hidden" name="id" value="<?=$user->getId()?>">
+<h1 class="mt-5">Alterando conta</h1>
 
-    <label for="name">Nome</label>
-    <input type="text" name="name" id="name" value="<?=$user->getName()?>">
+<div class="container p-5 center">
+    <form action="<?=$_SERVER['PHP_SELF']."?id=".$user->getId()."&table=".$user->getTyper()?>" method="post">
+        <input type="hidden" name="id" value="<?=$user->getId()?>">
 
-    <label for="email">Email:</label>
-    <input type="text" name="email" id="email" value="<?=$user->getEmail()?>">
+        <div class="mb-3">
+            <label for="name" class="form-label">Nome:</label>
+            <input type="text" name="name" id="name" class="form-control form-control-sm custom-input" value="<?=$user->getName()?>">
+        </div>
 
-    <label for="senha">Senha:</label>
-    <input type="text" name="senha" id="senha">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" name="email" id="email" class="form-control form-control-sm custom-input" value="<?=$user->getEmail()?>">
+        </div>
 
-    <input type="submit" value="Alterar">
-</form>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="text" name="senha" id="senha" class="form-control form-control-sm custom-input">
+        </div>
 
-<div class="erros">
-    <?php
-        if (!empty($erros)) {
-            foreach ($erros as $erro) {
-                echo "<p>" . $erro . "</p>";
-            }
-            array_pop($erros);
-        };
-    ?>
+        <input type="submit" value="Alterar" class="btn btn-primary mb-3">
+    </form>
+
+    <div class="form-text">
+        <?php
+            if (!empty($erros)) {
+                foreach ($erros as $erro) {
+                    echo "<p>" . $erro . "</p>";
+                }
+                array_pop($erros);
+            };
+        ?>
+    </div>
 </div>
 
 <?php

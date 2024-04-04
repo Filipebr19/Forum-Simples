@@ -45,17 +45,26 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
-<form action="" method="post">
-    <label for="email">Email:</label>
-    <input type="text" name="email" id="email">
+<h1 class="mt-5">Login</h1>
 
-    <label for="senha">Senha:</label>
-    <input type="text" name="senha" id="senha">
+<div class="container p-5 center">
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email:</label>
+            <input type="email" class="form-control form-control-sm custom-input" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+        </div>
 
-    <input type="submit" value="Acessar">
-</form>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Senha:</label>
+            <input type="password" class="form-control form-control-sm custom-input" id="exampleInputPassword1" name="senha">
+        </div>
 
-<div class="erros">
+        <input type="submit" value="Acessar" class="btn btn-primary mb-3">
+    </form>
+
+    <a href="cadrastro.php">Faça o cadrastro</a>
+
+    <div class="form-text">
     <?php
         if (!empty($erros)) {
             foreach ($erros as $erro) {
@@ -65,6 +74,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         };
     ?>
 </div>
+</div>
+
 
 <?php 
 include_once __DIR__ . '/../partials/footer.php';

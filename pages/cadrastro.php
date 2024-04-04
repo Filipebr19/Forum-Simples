@@ -47,22 +47,31 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 ?>
 
-<form action="" method="post">
-    <label for="name">Nome</label>
-    <input type="text" name="name" id="name">
+<h1 class="mt-5">Cadrastro</h1>
 
-    <label for="email">Email:</label>
-    <input type="text" name="email" id="email">
+<div class="container p-5 center">
+    <form action="" method="post">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nome:</label>
+            <input type="text" name="name" class="form-control form-control-sm custom-input" id="exampleInputEmail1">
+        </div>
+        
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email:</label>
+            <input type="email" class="form-control form-control-sm custom-input" id="exampleInputEmail1"  name="email">
+        </div>
 
-    <label for="senha">Senha:</label>
-    <input type="text" name="senha" id="senha">
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Senha:</label>
+            <input type="password" class="form-control form-control-sm custom-input" id="exampleInputPassword1" name="senha" >
+        </div>
 
-    <input type="submit" value="Cadastrar">
-</form>
+        <input type="submit" value="Cadastrar" class="btn btn-primary mb-3">
+    </form>
 
-<a href="login.php">Faça o login</a>
+    <a href="login.php">Faça o login</a>
 
-<div class="erros">
+    <div class="form-text">
     <?php
         if (!empty($erros)) {
             foreach ($erros as $erro) {
@@ -71,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             array_pop($erros);
         };
     ?>
+</div>
 </div>
 
 <?php
