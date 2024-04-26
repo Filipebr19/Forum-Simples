@@ -2,7 +2,7 @@
 namespace Interfaces;
 
 abstract class UserInterface {
-    public int $id;
+    protected int $id;
     protected string $name;
     protected string $email;
     protected string $senha;
@@ -14,6 +14,9 @@ abstract class UserInterface {
         $this->setSenha($senha);
         $this->setDate();
     }
+
+    abstract public function setId(int $id): void;
+    abstract public function getId(): int;
 
     abstract protected function setName(string $name): void;
     abstract public function getName(): string;
